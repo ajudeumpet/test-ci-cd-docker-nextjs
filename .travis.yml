@@ -25,4 +25,4 @@ install: npm install
 after_success:
   - docker build -t henryqrm/hello:$PACKAGE_VERSION .
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push henryqrm/hello:$PACKAGE_VERSION
+  - docker push henryqrm/hello:latest
