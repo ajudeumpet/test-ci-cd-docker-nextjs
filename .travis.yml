@@ -16,8 +16,8 @@ branches:
 
 install: npm install
 
-script:
-  - npm run build
+# script:
+#   - npm run build
 
 after_success:
   - docker --version
