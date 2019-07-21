@@ -24,6 +24,6 @@ install: npm install
 
 after_success:
   - docker --version
-  - docker tag local-image:$PACKAGE_VERSION reponame:$PACKAGE_VERSION
+  - docker build -t henryqrm/hello:$PACKAGE_VERSION .
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push henryqrm/hello:latest
+  - docker push henryqrm/hello:$PACKAGE_VERSION
