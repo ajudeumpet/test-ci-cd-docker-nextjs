@@ -1,5 +1,5 @@
 env:
-  - PACKAGE_VERSION="1.0.*"
+  - PACKAGE_VERSION="1.0"
 
 language: node_js
 node_js:
@@ -23,7 +23,6 @@ install: npm install
 #   - npm run build
 
 after_success:
-  - docker --version
   - docker build -t henryqrm/hello:$PACKAGE_VERSION .
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push henryqrm/hello:$PACKAGE_VERSION
