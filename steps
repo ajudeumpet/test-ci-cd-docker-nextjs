@@ -1,0 +1,49 @@
+// create account in digitalocean/dockerhub/github/travisCI
+// --- first install
+
+// --- install docker
+
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+
+// ---
+
+sudo docker run -d -p 80:80 -p 443:443 \
+    --name nginx-proxy \
+    -v /etc/ssl/certs:/etc/nginx/certs:ro \
+    -v /etc/nginx/vhost.d \
+    -v /usr/share/nginx/html \
+    -v /var/run/docker.sock:/tmp/docker.sock:ro \
+    --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy \
+    jwilder/nginx-proxy
+
+// --
+
+sudo docker run -d \
+    --name nginx-letsencrypt \
+    -e "DEBUG=true" \
+    -v /etc/ssl/certs:/etc/nginx/certs:rw \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    --volumes-from nginx-proxy \
+    jrcs/letsencrypt-nginx-proxy-companion:latest
+
+// --
+sudo docker run -d \
+    --name hughsimpson.me \
+    -e "VIRTUAL_HOST=hughsimpson.me, www.hughsimpson.me" \
+    -e "LETSENCRYPT_HOST=hughsimpson.me, www.hughsimpson.me" \
+    -e "LETSENCRYPT_EMAIL=email@email.com" \
+    hsimpson/hughsimpson.me:latest
+
+// Initiate watchtower (specifying an interval of 30 seconds):
+// --
+sudo docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  v2tec/watchtower --interval 30

@@ -4,3 +4,23 @@ node_js:
 cache:
   directories:
     - "node_modules"
+
+sudo: required
+
+services:
+  - docker
+
+branches:
+  only:
+  - master
+
+install: npm install
+
+script:
+  - npm run build
+
+after_success:
+  - docker --version
+  - docker build --tag henryqrm/hello.
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker push henryqrm/hello

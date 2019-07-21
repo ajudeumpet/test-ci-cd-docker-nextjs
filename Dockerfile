@@ -12,4 +12,4 @@ COPY . $HOME/
 
 CMD ["npm", "start"]
 
-EXPOSE 80
+EXPOSE 9000
