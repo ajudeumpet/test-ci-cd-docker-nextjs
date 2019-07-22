@@ -1,7 +1,9 @@
 FROM node:latest
 
-ENV HOME=/home/app
 ARG NODE_ENV=development
+ARG PORT=8000
+
+ENV HOME=/home/app
 
 COPY package.json $HOME/
 
@@ -13,4 +15,4 @@ COPY . $HOME/
 
 CMD ["npm", "start"]
 
-EXPOSE 9000
+EXPOSE $PORT

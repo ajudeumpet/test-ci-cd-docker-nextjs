@@ -1,5 +1,12 @@
+if: branch = master
 env:
-  - PACKAGE_VERSION="1.1"
+  PORT: 9000
+  NODE_ENV: production
+
+if: branch = develop
+env:
+  PORT: 8000
+  NODE_ENV: development
 
 language: node_js
 node_js:
@@ -12,8 +19,6 @@ cache:
   directories:
     - "node_modules"
 
-sudo: required
-
 services:
   - docker
 
@@ -24,10 +29,7 @@ branches:
   - master
   - develop
 
-# script:
-#   - npm run build
-
 after_success:
-  - docker build -t henryqrm/hello:latest .
+  - docker build -t henryqrm/hello:$NODE_ENV --build-arg NODE_ENV=$NODE_ENV PORT=$PORT .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push henryqrm/hello:latest
+  - docker push henryqrm/hello:$NODE_ENV
