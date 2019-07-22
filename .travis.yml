@@ -4,6 +4,10 @@ env:
 language: node_js
 node_js:
   - "stable"
+
+notifications:
+  email: false
+
 cache:
   directories:
     - "node_modules"
@@ -13,16 +17,17 @@ sudo: required
 services:
   - docker
 
+install: npm install
+
 branches:
   only:
   - master
-
-install: npm install
+  - develop
 
 # script:
 #   - npm run build
 
 after_success:
   - docker build -t henryqrm/hello:latest .
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push henryqrm/hello:latest

@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 9000
+const port = process.env.NODE_ENV === 'production' ? 9000 : 8000
 
-app.get('/', (req, res) => res.send('asdasdd!'))
+app.get('/', (req, res) => res.send(process.env.NODE_ENV))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
