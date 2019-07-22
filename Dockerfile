@@ -1,7 +1,7 @@
 FROM node:latest
 
 ENV HOME=/home/app
-ENV NODE_ENV=production
+ARG NODE_ENV=development
 
 COPY package.json $HOME/
 
