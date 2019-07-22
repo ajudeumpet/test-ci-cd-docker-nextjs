@@ -1,13 +1,3 @@
-if: branch = master
-env:
-  PORT: 9000
-  NODE_ENV: production
-
-if: branch = develop
-env:
-  PORT: 8000
-  NODE_ENV: development
-
 language: node_js
 node_js:
   - "stable"
@@ -30,6 +20,6 @@ branches:
   - develop
 
 after_success:
-  - docker build -t henryqrm/hello:$NODE_ENV --build-arg NODE_ENV=NODE_ENV PORT=PORT .
+  - docker build -t henryqrm/hello:$NODE_ENV --build-arg NODE_ENV=$NODE_ENV PORT=$PORT .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push henryqrm/hello:$NODE_ENV
