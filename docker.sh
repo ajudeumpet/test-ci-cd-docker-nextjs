@@ -19,5 +19,5 @@ sudo docker exec nginx-letsencrypt /app/force_renew
 
 sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock v2tec/watchtower --interval 30
 
-docker run -d -p 9000:9000 --name hello henryqrm/hello:production
-docker run -d -p 8000:8000 --name hello henryqrm/hello:development
+docker run -d -p 9000:9000 --name hello-prd henryqrm/hello:production
+docker run -d -p 8000:8000 --name hello-dev henryqrm/hello:development
