@@ -30,6 +30,6 @@ branches:
   - develop
 
 after_success:
-  - docker build -t henryqrm/hello:$NODE_ENV --build-arg NODE_ENV=$NODE_ENV PORT=$PORT .
+  - docker build -t henryqrm/hello:$NODE_ENV --build-arg NODE_ENV=NODE_ENV PORT=PORT .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push henryqrm/hello:$NODE_ENV
