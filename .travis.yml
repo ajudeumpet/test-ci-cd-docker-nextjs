@@ -22,6 +22,6 @@ branches:
 after_success:
   - echo "$PORT"
   - echo "$NODE_ENV"
-  - docker build -t henryqrm/hello --build-arg NODE_ENV=${NODE_ENV} PORT=${PORT} .
+  - docker build -t henryqrm/hello --build-arg NODE_ENV=${NODE_ENV} --build-arg PORT=${PORT} .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push henryqrm/hello
