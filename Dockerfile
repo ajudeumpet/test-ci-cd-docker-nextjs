@@ -1,9 +1,8 @@
 FROM node:latest
 
-ARG NODE_ENV=development
-ARG PORT=8000
-
 ENV HOME=/home/app
+ENV NODE_ENV $NODE_ENV
+ENV $PORT $PORT
 
 COPY package.json $HOME/
 
