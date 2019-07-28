@@ -11,7 +11,7 @@ COPY package.json $HOME/
 
 WORKDIR $HOME
 
-RUN npm install --silent --progress=false
+RUN npm install --silent --progress=false && npm cache clean
 
 COPY . $HOME/
 
